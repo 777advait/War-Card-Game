@@ -34,7 +34,7 @@ values = {
 	'Six':6, 
 	'Seven':7, 
 	'Eight':8, 
-    'Nine':9, 
+    	'Nine':9, 
 	'Ten':10, 
 	'Jack':11, 
 	'Queen':12, 
@@ -127,7 +127,7 @@ while game_on:
 	try:
 		player1_cards.append(player1.remove_card())
 		player2_cards.append(player2.remove_card())
-	except:
+	except IndexError:
 		pass
 
 	#while at_war
