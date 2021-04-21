@@ -2,6 +2,10 @@
 import random
 # to exit game
 from sys import exit
+# for designing stuff
+from rich.console import Console
+
+console = Console()
 
 ranks = [
 	'Two', 
@@ -34,7 +38,7 @@ values = {
 	'Six':6, 
 	'Seven':7, 
 	'Eight':8, 
-    	'Nine':9, 
+    'Nine':9, 
 	'Ten':10, 
 	'Jack':11, 
 	'Queen':12, 
@@ -92,8 +96,8 @@ round_num = 0
 
 # validating name input
 while name1 == '' or name2 == '':
-	name1 = input('Enter the name of first player: ')
-	name2 = input('Enter the name of second player: ')
+	name1 = console.input('[violet]Enter the name of [underline]first player[/][/]: ')
+	name2 = console.input('[violet]Enter the name of [underline]second player[/][/]: ')
 
 # creating an instance of two players
 player1 = Player(name1)
@@ -111,13 +115,13 @@ for x in range(26):
 # initializing game
 while game_on:
 	round_num += 1
-	print(f'Round {round_num}')
+	console.print(f'Round [bold underline green]{round_num}[/]')
 
 	# check for players out of cards
 	if len(player1.player_cards) == 0:
-		print(f'\n{player1.name} out of cards\n{player2.name} wins!')
+		console.print(f'\n[bold yellow]{player1.name}[/] out of cards\n[bold cyan]{player2.name}[/] wins!')
 	elif len(player2.player_cards) == 0:
-		print(f'\n{player2.name} out of cards\n{player1.name} wins!')
+		console.print(f'\n[bold yellow]{player2.name}[/] out of cards\n[bold cyan]{player1.name}[/] wins!')
 
 	# cards of players on table
 	player1_cards = []
@@ -140,7 +144,7 @@ while game_on:
 				player1.add_cards(player1_cards)
 				player1.add_cards(player2_cards)
 
-				print(f'{player1.name} wins round {round_num}!\n')
+				console.print(f'[bold cyan]{player1.name}[/] wins round [bold green]{round_num}[/]!\n')
 
 				at_war = False
 			elif player2_cards[-1].value > player1_cards[-1].value:
@@ -148,23 +152,23 @@ while game_on:
 				player2.add_cards(player2_cards)
 				player2.add_cards(player1_cards)
 
-				print(f'{player2.name} wins round {round_num}!\n')
+				console.print(f'[bold cyan]{player2.name}[/] wins round [bold green]{round_num}[/]!\n')
 
 				at_war = False
 
 			else:
-				print('WAR!')
+				console.print('[bold purple]WAR![/]')
 				# check for enough cards
 
 				if len(player1.player_cards) < 5:
-					print(
-						f"\n{player1.name} doesn't have enough cards to declare war\n{player2.name} wins!"
+					console.print(
+						f"\n[bold yellow]{player1.name}[/] doesn't have enough cards to declare war\n[bold cyan]{player2.name}[/] wins!"
 						)
 					game_on = False
 					exit('\nGame Over')
 				elif len(player2.player_cards) < 5:
-					print(
-						f"\n{player2.name} doesn't have enough cards to declare war\n{player1.name} wins!"
+					console.print(
+						f"\n[bold yellow]{player2.name}[/] doesn't have enough cards to declare war\n[bold cyan]{player1.name}[/] wins!"
 					)
 					game_on = False
 					exit('\nGame Over')
