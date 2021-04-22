@@ -93,8 +93,6 @@ name1 = ''
 name2 = ''
 game_on = True
 round_num = 0
-dealt_war1 = []
-dealt_war2 = []
 
 # validating name input
 while name1 == '' or name2 == '':
