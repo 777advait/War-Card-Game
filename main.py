@@ -84,7 +84,7 @@ class Player():
 		return self.player_cards.pop(0)
 
 	def __str__(self):
-		return f"{self.name} has {len(self.player_cards)} cards"
+		return self.player_cards
 
 # game setup
 
@@ -93,6 +93,8 @@ name1 = ''
 name2 = ''
 game_on = True
 round_num = 0
+dealt_war1 = []
+dealt_war2 = []
 
 # validating name input
 while name1 == '' or name2 == '':
@@ -115,22 +117,28 @@ for x in range(26):
 # initializing game
 while game_on:
 	round_num += 1
-	console.print(f'Round [bold underline green]{round_num}[/]')
+	console.print(f'\nRound [bold underline green]{round_num}[/]')
 
 	# check for players out of cards
 	if len(player1.player_cards) == 0:
 		console.print(f'\n[bold yellow]{player1.name}[/] out of cards\n[bold cyan]{player2.name}[/] wins!')
 	elif len(player2.player_cards) == 0:
 		console.print(f'\n[bold yellow]{player2.name}[/] out of cards\n[bold cyan]{player1.name}[/] wins!')
-
-	# cards of players on table
-	player1_cards = []
-	player2_cards = []
-
-	# dealing player cards on table
+	
 	try:
-		player1_cards.append(player1.remove_card())
-		player2_cards.append(player2.remove_card())
+		# cards of players on table
+		player1_cards = []
+		player1_dealt_cards = player1.remove_card()
+		player2_cards = []
+		player2_dealt_cards = player2.remove_card()
+
+		# dealing player cards on table
+		
+		player1_cards.append(player1_dealt_cards)
+		print(f'{player1.name} pulled out {player1_dealt_cards}')
+		player2_cards.append(player2_dealt_cards)
+		print(f'{player2.name} pulled out {player2_dealt_cards}')
+	
 	except IndexError:
 		pass
 
@@ -157,7 +165,7 @@ while game_on:
 				at_war = False
 
 			else:
-				console.print('[bold purple]WAR![/]')
+				console.print('\n[bold purple]WAR![/]')
 				# check for enough cards
 
 				if len(player1.player_cards) < 5:
@@ -177,8 +185,14 @@ while game_on:
 					# war continues 
 				else:
 					for x in range(5):
-						player1_cards.append(player1.remove_card())
-						player2_cards.append(player2.remove_card())
+						player1_dealt_cards = player1.remove_card()
+						player1_cards.append(player1_dealt_cards)
+
+						player2_dealt_cards = player2.remove_card()
+						player2_cards.append(player2_dealt_cards)
+
+					print(f'{player1.name} dealt {player1_dealt_cards}')
+					print(f'{player2.name} dealt {player2_dealt_cards}')
 
 		except IndexError:
 			exit('\nGame Over')
