@@ -189,8 +189,13 @@ while game_on:
 						player2_dealt_cards = player2.remove_card()
 						player2_cards.append(player2_dealt_cards)
 
-					print(f'{player1.name} dealt {player1_dealt_cards}')
-					print(f'{player2.name} dealt {player2_dealt_cards}')
+					
+					
+					war_cards1 = ', '.join([str(s) for s in player1_cards[-5:]])
+					print(f'{player1.name} dealt {war_cards1}')
+
+					war_cards2 = ', '.join([str(s) for s in player2_cards[-5:]])
+					print(f'{player2.name} dealt {war_cards2}')
 
 		except IndexError:
 			exit('\nGame Over')
